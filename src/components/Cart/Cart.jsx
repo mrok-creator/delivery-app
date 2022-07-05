@@ -12,7 +12,6 @@ import s from './cart.module.css';
 const Cart = () => {
   const dispatch = useDispatch();
   const products = useSelector(getProducts, shallowEqual);
-  console.log(products);
   const [modal, setModal] = useState({
     isOpen: false,
   });
