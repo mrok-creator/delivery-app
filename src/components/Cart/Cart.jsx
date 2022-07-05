@@ -12,18 +12,13 @@ import s from './cart.module.css';
 const Cart = () => {
   const dispatch = useDispatch();
   const products = useSelector(getProducts, shallowEqual);
-
+  console.log(products);
   const [modal, setModal] = useState({
     isOpen: false,
   });
 
-  const totalPrice = products
-    .reduce((acc, item) => acc + item.price, 0)
-    .toFixed(2);
-  // elements.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)
-
   const deleteProduct = useCallback(
-    id => dispatch(actions.deleteProducts(id)),
+    name => dispatch(actions.deleteProducts(name)),
     [dispatch]
   );
 
@@ -52,12 +47,17 @@ const Cart = () => {
       <button
         type="button"
         className={s.deleteBtn}
-        onClick={() => deleteProduct(id)}
+        onClick={() => deleteProduct(name)}
       >
         Delete
       </button>
     </li>
   ));
+
+  const totalPrice = products
+    .reduce((acc, item) => acc + item.price, 0)
+    .toFixed(2);
+  // elements.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)
 
   const { isOpen } = modal;
   return (

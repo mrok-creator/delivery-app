@@ -20,9 +20,11 @@ const shopsSlice = createSlice({
         return { payload: newProd };
       },
     },
-    // addProducts: ({ products }, { payload }) => products.push(payload),
-    deleteProducts: ({ products }, { payload }) =>
-      products.filter(product => product.id !== payload),
+
+    deleteProducts: (store, { payload }) => ({
+      ...store,
+      products: store.products.filter(product => product.name !== payload),
+    }),
     clearCart: store => ({ ...store, products: [] }),
   },
 });

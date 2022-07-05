@@ -7,10 +7,6 @@ function NavMenu() {
     isActive ? s.linkActive + ' ' + s.link : s.link;
   return (
     <>
-      <NavLink className={getActiveLink} to="/">
-        Home
-      </NavLink>
-
       <NavLink className={getActiveLink} to="/shop">
         Shops
       </NavLink>
