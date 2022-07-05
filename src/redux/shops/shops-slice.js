@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid';
 
 const initialState = {
   activeId: null,
@@ -10,10 +11,19 @@ const shopsSlice = createSlice({
   initialState,
   reducers: {
     setActiveId: (_, { payload }) => ({ activeId: payload }),
-    addProducts: (state, { payload }) => state.products.push(payload),
-    deleteProducts: (state, { payload }) =>
-      state.products.filter(product => product.name !== payload),
-    clearCart: state => ({ ...state, products: [] }),
+    addProducts: {
+      reducer({ products }, { payload }) {
+        products.push(payload);
+      },
+      prepare(data) {
+        const newProd = { ...data, id: nanoid() };
+        return { payload: newProd };
+      },
+    },
+    // addProducts: ({ products }, { payload }) => products.push(payload),
+    deleteProducts: ({ products }, { payload }) =>
+      products.filter(product => product.id !== payload),
+    clearCart: store => ({ ...store, products: [] }),
   },
 });
 

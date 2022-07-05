@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { nanoid } from 'nanoid';
 
 import Loader from 'shared/components/Loader';
-import ProductCard from 'shared/components/ProductCard';
+import ProductCard from './ProductCard';
 
 import { getShopId } from 'redux/shops/shops-selector';
 import * as api from 'shared/services/shop';
@@ -19,6 +18,7 @@ const Products = () => {
   useEffect(() => {
     const fetchShop = async () => {
       setProducts(prevProd => ({
+        ...prevProd,
         isLoading: true,
         error: null,
       }));
@@ -43,17 +43,17 @@ const Products = () => {
     if (activeID) {
       fetchShop();
     }
-  }, [activeID, productsList]);
+  }, [activeID]);
 
   const { products, isLoading, error } = productsList;
 
-  const elements = products.map(products => (
-    <ProductCard key={nanoid()} {...products} />
+  const elements = products.map((product, index) => (
+    <ProductCard key={index} {...product} />
   ));
 
   return (
     <>
-      {products.length > 0 && `elements`}
+      {products.length > 0 && elements}
       {!(products.length > 0) && !error && `There is no products to order, yet`}
       {isLoading && <Loader />}
       {error && <div> {`Something went wrong: ${error}`}</div>}
