@@ -31,8 +31,6 @@ const Products = () => {
           isLoading: false,
           products: [...shops.products],
         }));
-        console.log(shops.products);
-        console.log(productsList);
       } catch (error) {
         setProducts(prevProd => ({
           ...prevProd,
@@ -41,10 +39,11 @@ const Products = () => {
         }));
       }
     };
+
     if (activeID) {
       fetchShop();
     }
-  }, []);
+  }, [activeID, productsList]);
 
   const { products, isLoading, error } = productsList;
 
@@ -54,7 +53,7 @@ const Products = () => {
 
   return (
     <>
-      {products.length > 0 && { products }}
+      {products.length > 0 && `elements`}
       {!(products.length > 0) && !error && `There is no products to order, yet`}
       {isLoading && <Loader />}
       {error && <div> {`Something went wrong: ${error}`}</div>}

@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 import s from './style.module.css';
 
 function Footer() {
