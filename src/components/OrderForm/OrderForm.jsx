@@ -1,11 +1,14 @@
 import { useState, useCallback } from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
 
 import { Notify } from 'notiflix';
 
+import { getProducts } from 'redux/shops/shops-selector';
 import { addUser } from 'shared/services/customer';
 import s from './orderForm.module.css';
 
 const OrderForm = () => {
+  const products = useSelector(getProducts, shallowEqual);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -45,12 +48,13 @@ const OrderForm = () => {
   const createOrder = useCallback(
     async e => {
       e.preventDefault();
-      console.log(formData);
-      const data = await fetchUserData(formData);
-      console.log(data);
+
+      const data = await fetchUserData({ ...formData, products });
+
       setFormData({ name: '', phone: '', email: '', address: '' });
+      return data;
     },
-    [fetchUserData, formData]
+    [fetchUserData, formData, products]
   );
 
   const { name, phone, email, address } = formData;
