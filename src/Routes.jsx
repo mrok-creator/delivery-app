@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Loader from 'shared/components/Loader';
 
@@ -16,6 +16,7 @@ const NavigationRoutes = () => {
           <Route path="/" element={<LayOut />}>
             <Route path="/shop" element={<ShopsPage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="*" element={<Navigate to="/shop" replace />} />
           </Route>
         </Routes>
       </Suspense>
