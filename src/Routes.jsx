@@ -14,8 +14,8 @@ const NavigationRoutes = () => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<LayOut />}>
-            <Route path="/shop" element={<ShopsPage />} />
-            <Route path="/cart" element={<CartPage />} />
+            <Route path="shop" element={<ShopsPage />} />
+            <Route path="cart" element={<CartPage />} />
             <Route path="*" element={<Navigate to="/shop" replace />} />
           </Route>
         </Routes>
